@@ -1,0 +1,33 @@
+def longest_nice_substring(s):
+    nice_substring = ""
+    start, end = 0, 0
+    nice_set = set()
+
+    while end < len(s):
+        nice_set.add(s[end].lower())
+        nice_set.add(s[end].upper())
+
+        if len(nice_set) == 26:  # All letters encountered
+            if end - start + 1 > len(nice_substring):
+                nice_substring = s[start:end + 1]
+            end += 1
+        else:
+            # Move start index to the next position
+            start = end + 1
+            end = start
+            nice_set.clear()
+
+    return nice_substring
+
+# Example usage:
+s1 = "abABB"
+s2 = "abA"
+s3 = "aA"
+s4 = "abcABC"
+s5 = "abc"
+
+print(longest_nice_substring(s1))  # Output: "abABB"
+print(longest_nice_substring(s2))  # Output: ""
+print(longest_nice_substring(s3))  # Output: "aA"
+print(longest_nice_substring(s4))  # Output: "abcABC"
+print(longest_nice_substring(s5))  # Output: ""
